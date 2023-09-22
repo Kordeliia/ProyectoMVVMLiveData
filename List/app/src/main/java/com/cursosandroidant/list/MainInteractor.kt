@@ -15,21 +15,21 @@ import kotlin.concurrent.thread
  * Web: www.alainnicolastello.com
  ***/
 class MainInteractor {
-    val items: MutableLiveData<MutableList<ItemEntity>> = MutableLiveData()
+    val items: MutableLiveData<MutableList<Any>> = MutableLiveData()
 
     init {
         items.value = mutableListOf()
     }
 
-    fun addItem(itemEntity: ItemEntity) {
+    fun addItem(itemEntity: Any) {
         items.value?.let {
-            val newData: MutableList<ItemEntity> = mutableListOf(itemEntity)
+            val newData: MutableList<Any> = mutableListOf(itemEntity)
             newData.addAll(it)
             items.value = newData
         }
     }
 
-    fun updateItem(itemEntity: ItemEntity){
+    fun updateItem(itemEntity: Any){
         items.value?.let {
             val index = it.indexOf(itemEntity)
             it.set(index, itemEntity)

@@ -20,7 +20,7 @@ class MainViewModel : ViewModel() {
 
     val errorMsg: MutableLiveData<String> = MutableLiveData()
 
-    fun addItem(itemEntity: ItemEntity){
+    fun addItem(itemEntity: Any){
         try {
             interactor.addItem(itemEntity)
         } catch (e: Exception) {
@@ -28,7 +28,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun updateItem(itemEntity: ItemEntity){
+    fun updateItem(itemEntity: Any){
         try {
             interactor.updateItem(itemEntity)
         } catch (e: Exception) {

@@ -1,7 +1,5 @@
 package com.cursosandroidant.list
 
-import android.content.ClipData.Item
-
 /****
  * Project: List
  * From: com.cursosandroidant.list
@@ -13,5 +11,5 @@ import android.content.ClipData.Item
  * Web: www.alainnicolastello.com
  ***/
 interface OnClickListener {
-    fun onClick(itemEntity: ItemEntity)
+    fun onClick(itemEntity: Any)
 }
