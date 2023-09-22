@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">List</string>
+    <string name="main_hint_insert">escribe algo…</string>
+    <string name="main_button_add">Add</string>
+</resources>
