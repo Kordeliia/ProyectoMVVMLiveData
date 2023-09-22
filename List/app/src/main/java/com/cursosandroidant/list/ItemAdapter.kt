@@ -4,6 +4,7 @@ import android.content.ClipData.Item
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,9 +12,9 @@ import com.cursosandroidant.list.databinding.ItemListBinding
 
 class ItemAdapter(private val listener: OnClickListener) : ListAdapter<ItemEntity, RecyclerView.ViewHolder>(ItemDiffCallback()) {
     inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
-        val binding = ItemListBinding.bind(view)
+        val binding = DataBindingUtil.bind<ItemListBinding>(view)
         fun setListener(itemEntity: ItemEntity){
-            binding.cbFavorite.setOnClickListener{listener.onClick(itemEntity) }
+            binding?.cbFavorite?.setOnClickListener{listener.onClick(itemEntity) }
         }
     }
     class ItemDiffCallback: DiffUtil.ItemCallback<ItemEntity>(){
@@ -32,8 +33,7 @@ class ItemAdapter(private val listener: OnClickListener) : ListAdapter<ItemEntit
         val itemEntity = getItem(position)
         with(holder as ViewHolder){
             setListener(itemEntity)
-            binding.tvText.text = itemEntity.text
-            binding.cbFavorite.isChecked = itemEntity.favorite
+            binding?.itemEntity = itemEntity
         }
     }
 }

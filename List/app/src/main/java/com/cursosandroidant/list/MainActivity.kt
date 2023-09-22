@@ -2,6 +2,7 @@ package com.cursosandroidant.list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cursosandroidant.list.databinding.ActivityMainBinding
@@ -25,8 +26,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setupViewModel()
         setupRecyclerView()
         setupBotton()
