@@ -2,8 +2,10 @@ package com.cursosandroidant.list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cursosandroidant.list.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlin.random.Random
 
 /****
@@ -19,19 +21,32 @@ import kotlin.random.Random
 class MainActivity : AppCompatActivity(), OnClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: ItemAdapter
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupViewModel()
         setupRecyclerView()
         setupBotton()
+    }
+
+    private fun setupViewModel() {
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        mainViewModel.items.observe(this, { items ->
+            adapter.submitList(items)
+        })
+
+        mainViewModel.errorMsg.observe(this, {error ->
+            Snackbar.make(binding.root, error, Snackbar.LENGTH_LONG).show()
+        })
     }
 
     private fun setupBotton() {
         binding.btnSave.setOnClickListener {
             val itemEntity = ItemEntity(Random.nextLong(), binding.etText.text.toString())
-            //Accion de salvar para siguiente apartado
+            mainViewModel.addItem(itemEntity)
         }
     }
 
@@ -44,7 +59,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    override fun onClick(itemEntity: Any) {
-        
+    override fun onClick(itemEntity: ItemEntity) {
+        mainViewModel.updateItem(itemEntity)
     }
 }
